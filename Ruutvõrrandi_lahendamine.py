@@ -1,5 +1,8 @@
-﻿from re import A
+﻿from re import *
 from tkinter import *
+import matplotlib.pyplot as plt
+from matplotlib import mlab
+from math import *
 
 def Answer():
       a=float(textbox1.get())
@@ -10,17 +13,51 @@ def Answer():
             if D>0:
                 x1=((b*-1)+D**(1/2))/2*a
                 x2=((b*-1)-D**(1/2))/2*a
-                AnswerForm.configure(text="Vastama on "+x1+","+x2)
+                answer1 = "Vastama on ", x1, ",", x2
+                AnswerForm.configure(text=answer1)
             elif D==0:
                 x=(b*-1)/(2*a)
-                AnswerForm.configure(text="Vastama on "+x)
+                answer2 =  "Vastama on ", x
+                AnswerForm.configure(text=answer2)
             elif D<0:
                AnswerForm.configure(text="Võrrandil pole juuri")    
       else:
           textbox1.configure(bg="#ff1100")
           textbox2.configure(bg="#ff1100")
           textbox3.configure(bg="#ff1100")
-      
+
+def Grafik():
+      a=float(textbox1.get())
+      b=float(textbox2.get())
+      c=float(textbox3.get())
+      if a!="" and b!="" and c!="":
+            D=b**2-4*a*c
+            if D>0:
+                x1=((b*-1)+D**(1/2))/2*a
+                x2=((b*-1)-D**(1/2))/2*a
+                xmin=-20.0
+                xmax=20.0
+                dx=0.01
+                xlist=mlab.frange(xmin, xmax, dx)
+                plt.plot(xlist, ylist, color='b', linestyle='-', marker='')
+                ymin=-20.0
+                ymax=20.0
+                dy=0.01
+                ylist=mlab.frange(ymin, ymax, dy)
+                plt.show()
+
+            elif D==0:
+                x=(b*-1)/(2*a)
+            elif D<0:
+               AnswerForm.configure(text="Võrrandil pole juuri")    
+      else:
+          textbox1.configure(bg="#ff1100")
+          textbox2.configure(bg="#ff1100")
+          textbox3.configure(bg="#ff1100")
+    
+    
+
+
       
 
 
@@ -32,6 +69,7 @@ aken.title("Tkineri kasutamine")
 
 tekst1="Ruutvõrrandi lahendamine"
 tekst2="Lahendus"
+tekst3 = "Graafik"
 
 
 pealkiri=Label(aken,
@@ -73,8 +111,8 @@ AnswerForm=Label(aken,
              bg="#ffd042",
              fg="#000000",
              font="Arial 20",
-             height=1,
-             width=len(tekst2)
+             height=3,
+             width=30
              )
 
 
@@ -107,7 +145,13 @@ nupp=Button(aken,
             command=Answer
             
             )
-
+nupp2=Button(aken,
+            text=tekst3,
+            height=1,
+            width=len(tekst3),
+            bg="#72d048",
+            font="Arial 20",
+            command=Grafik)
 
 pealkiri.grid(row=0,column=1,columnspan=6)
 esimineForm.grid(row=1,column=1)
@@ -117,5 +161,6 @@ textbox1.grid(row=1,column=0)
 textbox2.grid(row=1,column=2)
 textbox3.grid(row=1,column=4)
 nupp.grid(row=1,column=6)
-AnswerForm.grid(row=9,column=4)
+nupp2.grid(row=1,column=7)
+AnswerForm.grid(row=9,column=1,columnspan=6)
 aken.mainloop()
