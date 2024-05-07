@@ -29,31 +29,19 @@ def Answer():
 def Grafik():
       a=float(textbox1.get())
       b=float(textbox2.get())
-      c=float(textbox3.get())
-      if a!="" and b!="" and c!="":
-            D=b**2-4*a*c
-            if D>0:
-                x1=((b*-1)+D**(1/2))/2*a
-                x2=((b*-1)-D**(1/2))/2*a
-                xmin=-20.0
-                xmax=20.0
-                dx=0.01
-                xlist=mlab.frange(xmin, xmax, dx)
-                plt.plot(xlist, ylist, color='b', linestyle='-', marker='')
-                ymin=-20.0
-                ymax=20.0
-                dy=0.01
-                ylist=mlab.frange(ymin, ymax, dy)
-                plt.show()
-
-            elif D==0:
-                x=(b*-1)/(2*a)
-            elif D<0:
-               AnswerForm.configure(text="Võrrandil pole juuri")    
-      else:
-          textbox1.configure(bg="#ff1100")
-          textbox2.configure(bg="#ff1100")
-          textbox3.configure(bg="#ff1100")
+      c=float(textbox3.get())     
+      x0=-b/(2*a)
+      y0=a*x0**2+b*x0+c
+      x1 = [x0 - 10, x0 - 5, x0, x0 + 5, x0 + 10]  
+      y1 = [a * x ** 2 + b * x + c for x in x1]
+      plt.figure()
+      plt.plot(x1, y1, 'r-d')
+      plt.ylabel('y')
+      plt.xlabel('x')
+      plt.grid(True)
+      plt.show()
+        
+      
     
     
 
