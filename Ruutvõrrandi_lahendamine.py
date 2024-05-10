@@ -13,11 +13,11 @@ def Answer():
             if D>0:
                 x1=((b*-1)+D**(1/2))/2*a
                 x2=((b*-1)-D**(1/2))/2*a
-                answer1 = "Vastama on ", x1, ",", x2
+                answer1 = "Vastama on ", round(x1, 3), ",",  round(x2, 3)
                 AnswerForm.configure(text=answer1)
             elif D==0:
                 x=(b*-1)/(2*a)
-                answer2 =  "Vastama on ", x
+                answer2 =  "Vastama on ",  round(x, 3)
                 AnswerForm.configure(text=answer2)
             elif D<0:
                AnswerForm.configure(text="Võrrandil pole juuri")    
@@ -32,7 +32,9 @@ def Grafik():
       c=float(textbox3.get())     
       x0=-b/(2*a)
       y0=a*x0**2+b*x0+c
-      x1 = [x0 - 10, x0 - 5, x0, x0 + 5, x0 + 10]  
+      x1 = []
+      for i in range(-20, 21):
+          x1.append(x0 + i)
       y1 = [a * x ** 2 + b * x + c for x in x1]
       plt.figure()
       plt.plot(x1, y1, 'r-d')
@@ -58,6 +60,9 @@ aken.title("Tkineri kasutamine")
 tekst1="Ruutvõrrandi lahendamine"
 tekst2="Lahendus"
 tekst3 = "Graafik"
+tekst4 = "Graafik 1"
+tekst5 = "Graafik 2"
+tekst6 = "Graafik 3"
 
 
 pealkiri=Label(aken,
@@ -140,8 +145,29 @@ nupp2=Button(aken,
             bg="#72d048",
             font="Arial 20",
             command=Grafik)
+nupp3=Button(aken,
+            text=tekst4,
+            height=1,
+            width=len(tekst4),
+            bg="#72d048",
+            font="Arial 20",
+            command=Grafik)
+nupp4=Button(aken,
+            text=tekst5,
+            height=1,
+            width=len(tekst5),
+            bg="#72d048",
+            font="Arial 20",
+            command=Grafik)
+nupp5=Button(aken,
+            text=tekst6,
+            height=1,
+            width=len(tekst6),
+            bg="#72d048",
+            font="Arial 20",
+            command=Grafik)
 
-pealkiri.grid(row=0,column=1,columnspan=6)
+pealkiri.grid(row=0,column=0,columnspan=7)
 esimineForm.grid(row=1,column=1)
 teineForm.grid(row=1,column=3)
 kolmasForm.grid(row=1,column=5)
@@ -150,5 +176,8 @@ textbox2.grid(row=1,column=2)
 textbox3.grid(row=1,column=4)
 nupp.grid(row=1,column=6)
 nupp2.grid(row=1,column=7)
-AnswerForm.grid(row=9,column=1,columnspan=6)
+nupp3.grid(row=10,column=1,columnspan=2)
+nupp4.grid(row=10,column=3,columnspan=2)
+nupp5.grid(row=10,column=5,columnspan=2)
+AnswerForm.grid(row=9,column=0,columnspan=7)
 aken.mainloop()
